@@ -30,33 +30,40 @@ const Search = () => {
     <div className={css.search}>
       <div className={css.container}>
         <h1 className={css.title}>Image Search Engine</h1>
-        <form onSubmit={(e) => queryImages(e)}>
-          <label className={css.inputLabel}> 📷</label>
-          <input
-            type="text"
-            className={css.input}
-            placeholder="Search images"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            required
-          />
-          <button type="submit" className={css.button}>
-            Search
-          </button>
-        </form>
-      </div>
-      <div className={css.card_list}>
-        {(images || []).map((image) => (
-          <div className={css.card}>
-            <img
-              className="card_image"
-              alt={image.alt_description}
-              src={image.urls.full}
-              width="50%"
-              height="50%"
-            ></img>
+        <>
+          <form className={css.form} onSubmit={(e) => queryImages(e)}>
+            <label className={css.inputLabel} htmlFor="query">
+              {" "}
+              📷
+            </label>
+            <input
+              type="text"
+              name="query"
+              className={css.input}
+              placeholder="Search images"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              required
+            />
+            <button type="submit" className={css.button}>
+              Search
+            </button>
+          </form>
+
+          <div className={css.card_list}>
+            {(images || []).map((image) => (
+              <div className={css.card} key={image.id}>
+                <img
+                  className={css.card_image}
+                  alt={image.alt_description}
+                  src={image.urls.full}
+                  width="50%"
+                  height="50%"
+                ></img>
+              </div>
+            ))}
           </div>
-        ))}
+        </>
       </div>
     </div>
   );

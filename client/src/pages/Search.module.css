@@ -15,6 +15,11 @@
     sans-serif;
 }
 
+.form {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
 .inputLabel {
   font-size: 3rem;
 }
