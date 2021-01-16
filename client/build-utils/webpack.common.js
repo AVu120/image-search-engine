@@ -11,6 +11,10 @@ module.exports = {
         exclude: /node_modules/,
         use: ["babel-loader", "eslint-loader"],
       },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
   resolve: {
@@ -23,7 +27,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: "Base React Webpack Babel Template",
+      title: "Image Search Engine",
       template: path.resolve(__dirname, "..", "./src/index.html"),
     }),
   ],
