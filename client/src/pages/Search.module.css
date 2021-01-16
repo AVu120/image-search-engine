@@ -1,9 +1,4 @@
 .search {
-  margin: 0;
-  padding: 0;
-}
-
-.container {
   margin: 0 auto;
   max-width: 1000px;
   padding: 40px;
@@ -11,21 +6,19 @@
 
 .title {
   font-size: 4rem;
-  font-family: "Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS",
-    sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", "Trebuchet MS", sans-serif;
 }
 
 .form {
-  display: flex;
-  margin-bottom: 1rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-gap: 1rem;
+  align-items: center;
 }
 
 .inputLabel {
   font-size: 3rem;
-}
-.label {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .input {
@@ -34,7 +27,7 @@
   line-height: 2.8rem;
   border-radius: 20px;
   background-color: white;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 }
 
 .button {
@@ -55,6 +48,7 @@
 /* Mobile view  */
 .card_list {
   column-count: 1;
+  margin-top: 1rem;
 }
 
 /* Tablet view  */
@@ -62,6 +56,11 @@
   .card_list {
     column-count: 2;
   }
+  /* .form {
+    grid-template-columns: auto 1fr auto;
+    grid-gap: 1rem;
+    align-items: center;
+  } */
 }
 
 /* Desktop view  */
