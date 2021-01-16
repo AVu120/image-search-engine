@@ -1,10 +1,25 @@
 const express = require("express");
 const router = express.Router();
+const { createApi } = require("unsplash-js");
+const nodeFetch = require("node-fetch");
+require("dotenv").config();
 
-/* GET home page. */
-router.get("/", function (req, res, next) {
-  const { query } = req.params;
-  res.render("index", { title: "Express" });
+const api = createApi({
+  accessKey: process.env.API_KEY,
+  fetch: nodeFetch,
+});
+
+router.get("/", (req, res, next) => {
+  const { query } = req.query;
+  api.search
+    .getPhotos({ query })
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.status(500).send(error);
+    });
 });
 
 module.exports = router;
