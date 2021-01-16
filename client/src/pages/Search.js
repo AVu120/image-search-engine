@@ -5,8 +5,8 @@ import css from "./Search.module.css";
 const Search = () => {
   const [query, setQuery] = useState("");
   const [images, setImages] = useState([]);
-  const [numberOfShownImages, setNumberOfShownImages] = useState(10);
   const [shownImages, setShownImages] = useState([]);
+  const numberOfImagesToLoad = 10;
 
   const queryImages = async (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ const Search = () => {
       const responseInJson = await response.json();
       setImages(responseInJson.response.results);
       setShownImages(
-        responseInJson.response.results.slice(0, numberOfShownImages)
+        responseInJson.response.results.slice(0, numberOfImagesToLoad)
       );
     } else {
       console.error({ response });
@@ -35,15 +35,17 @@ const Search = () => {
   // Trigger this function when user scrolls to bottom of image grid to
   // enable infinite scrolling.
   const showMoreImages = () => {
-    setShownImages(images.slice(0, numberOfShownImages + 10));
-    setNumberOfShownImages((state) => state + 10);
+    if (shownImages.length < images.length)
+      setShownImages(
+        images.slice(0, shownImages.length + numberOfImagesToLoad)
+      );
   };
 
   return (
     <div className={css.search}>
       <h1 className={css.title}>Image Search Engine</h1>
       <>
-        <form className={css.form} onSubmit={(e) => queryImages(e)}>
+        <form className={css.form} onSubmit={(e) => query && queryImages(e)}>
           {" "}
           <label className={css.inputLabel} htmlFor="query">
             {" "}
@@ -62,25 +64,35 @@ const Search = () => {
             Search
           </button>
         </form>
-
-        <div className={css.card_list}>
+        <div className={css.card_list_container} id="scrollableDiv">
           <InfiniteScroll
-            dataLength={numberOfShownImages}
+            dataLength={shownImages.length}
             next={showMoreImages}
-            hasMore={true}
-            loader={<h4>Loading...</h4>}
+            hasMore={shownImages.length < images.length}
+            loader={<p className={css.text}>Loading...</p>}
+            endMessage={
+              images.length ? (
+                <p className={css.text}>
+                  Loading complete. It may take some time for all images to
+                  completely appear.
+                </p>
+              ) : null
+            }
+            scrollableTarget="scrollableDiv"
           >
-            {shownImages.map((image) => (
-              <div className={css.card} key={image.id}>
-                <img
-                  className={css.card_image}
-                  alt={image.alt_description}
-                  src={image.urls.full}
-                  width="50%"
-                  height="50%"
-                ></img>
-              </div>
-            ))}
+            <div className={css.card_list}>
+              {shownImages.map((image) => (
+                <div className={css.card} key={image.id}>
+                  <img
+                    className={css.card_image}
+                    alt={image.alt_description}
+                    src={image.urls.full}
+                    width="50%"
+                    height="50%"
+                  ></img>
+                </div>
+              ))}
+            </div>
           </InfiniteScroll>
         </div>
       </>

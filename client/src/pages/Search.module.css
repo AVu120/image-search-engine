@@ -2,11 +2,18 @@
   margin: 0 auto;
   max-width: 1000px;
   padding: 40px;
+  height: 100vh;
 }
 
 .title {
   font-size: 4rem;
   font-family: "Gill Sans", "Gill Sans MT", "Trebuchet MS", sans-serif;
+}
+
+.text {
+  font-size: 1.4rem;
+  text-align: center;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .form {
@@ -38,17 +45,21 @@
   border-radius: 20px;
   font-size: 1.4rem;
   cursor: pointer;
-  transition: background-color 250ms;
+  /* transition: background-color 250ms; */
 }
 
 .button:hover {
   background-color: rgba(0, 0, 0, 0.85);
 }
 
+.card_list_container {
+  height: 80vh;
+  overflow-y: scroll;
+  margin-top: 1rem;
+}
 /* Mobile view  */
 .card_list {
   column-count: 1;
-  margin-top: 1rem;
 }
 
 /* Tablet view  */
@@ -56,11 +67,6 @@
   .card_list {
     column-count: 2;
   }
-  /* .form {
-    grid-template-columns: auto 1fr auto;
-    grid-gap: 1rem;
-    align-items: center;
-  } */
 }
 
 /* Desktop view  */

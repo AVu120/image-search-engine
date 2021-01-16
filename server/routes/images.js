@@ -12,7 +12,7 @@ const api = createApi({
 router.get("/", (req, res, next) => {
   const { query } = req.query;
   api.search
-    .getPhotos({ query })
+    .getPhotos({ query, perPage: 100 })
     .then((result) => {
       res.send(result);
     })
