@@ -5,7 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import { BrowserRouter as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -74,18 +74,18 @@ const MenuButton = ({ title = "menu", options = [] }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <Link to="/" exact onClick={handleClose}>
+        <Link to="/" onClick={handleClose}>
           <StyledMenuItem>
             <ListItemText primary="Search" />
           </StyledMenuItem>
         </Link>
 
-        <Link to="/instructions" exact onClick={handleClose}>
+        <Link to="/instructions" onClick={handleClose}>
           <StyledMenuItem>
             <ListItemText primary="Instructions" />
           </StyledMenuItem>
         </Link>
-        <Link to="/about" exact onClick={handleClose}>
+        <Link to="/about" onClick={handleClose}>
           <StyledMenuItem>
             <ListItemText primary="About" />
           </StyledMenuItem>
