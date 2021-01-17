@@ -34,10 +34,10 @@ const ImageGrid = ({
         dataLength={shownImages.length}
         next={showMoreImages}
         hasMore={shownImages.length < images.length}
-        loader={<p className={css.text}>Loading...</p>}
+        loader={<p className="text">Loading...</p>}
         endMessage={
           images.length ? (
-            <p className={css.text}>
+            <p className="text">
               Loading complete. It may take some time for all images to
               completely appear.
             </p>
@@ -58,7 +58,7 @@ const ImageGrid = ({
                     src={image.user.profile_image?.small}
                     className={classes.profileAvatar}
                   />
-                  <p className={css.text}>{image.user?.name}</p>
+                  <p className="text">{image.user?.name}</p>
                 </a>
                 <img
                   alt={image.alt_description}
@@ -95,9 +95,9 @@ const ImageGrid = ({
               </div>
             ))
           ) : isLoading ? (
-            <p className={css.text}>Loading...</p>
+            <p className="text">Loading...</p>
           ) : receivedResponse ? (
-            <p className={css.text}>
+            <p className="text">
               No images found. Try again with different word(s).
             </p>
           ) : null}

@@ -5,7 +5,7 @@ const Instructions = () => {
   return (
     <div className={css.instructions}>
       <h1 className="title">Instructions</h1>
-      <ol className={css.instructions_list}>
+      <ol className={`text ${css.instructions_list}`}>
         <li>Go to search page.</li>
         <li>
           Enter keywords/tags relating to the images you want to see. If you're

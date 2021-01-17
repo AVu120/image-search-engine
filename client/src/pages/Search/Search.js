@@ -22,7 +22,10 @@ const Search = () => {
     setReceivedResponse(false);
     setIsLoading(true);
     e.preventDefault();
-    const apiEndpoint = "http://localhost:5000/images";
+    /* Enable below for development. */
+    // const apiEndpoint = "http://localhost:5000/images";
+    /* Enable below for production. */
+    const apiEndpoint = "/images";
     const queryParmaters = { query };
 
     const response = await axios.get(apiEndpoint, { params: queryParmaters });
@@ -73,7 +76,7 @@ const Search = () => {
 
   return (
     <div className={css.search}>
-      <h1 className={css.title}>
+      <h1 className="title">
         Beautiful, free images and photos that you can download and use for any
         project.
       </h1>
