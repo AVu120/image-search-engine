@@ -33,7 +33,7 @@
   padding: 0.5rem 2rem;
   line-height: 2.8rem;
   border-radius: 20px;
-  background-color: white;
+  background-color: rgb(244, 244, 244);
   /* margin-bottom: 1rem; */
 }
 
@@ -63,7 +63,7 @@
 }
 
 /* Tablet view  */
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 800px) {
   .card_list {
     column-count: 2;
   }
@@ -96,4 +96,22 @@
   align-items: center;
   cursor: pointer;
   text-decoration: none;
+}
+
+.image_actions_container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.favourite_button {
+  position: relative;
+  right: 10px;
+}
+
+.download_button {
+  justify-content: flex-end;
+  margin-left: auto;
+  position: relative;
+  /* right: 5px; */
 }

@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { testImageData } from "./constant";
 import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
+import FavouritedIcon from "@material-ui/icons/Favorite";
+import UnfavouritedIcon from "@material-ui/icons/FavoriteBorder";
 import css from "./Search.module.css";
 import { makeStyles } from "@material-ui/core/styles";
+import DownloadButton from "../components/common/DownloadButton";
 
 const useStyles = makeStyles((theme) => ({
   profileAvatar: {
@@ -17,6 +21,7 @@ const Search = () => {
   const classes = useStyles();
   const [query, setQuery] = useState("");
   const [images, setImages] = useState([]);
+  const [favouritedImages, setFavouritedImages] = useState([]);
   const [shownImages, setShownImages] = useState(testImageData);
   const numberOfImagesToLoad = 10;
 
@@ -52,6 +57,10 @@ const Search = () => {
         images.slice(0, shownImages.length + numberOfImagesToLoad)
       );
   };
+
+  useEffect(() =>
+    window.addEventListener("resize", () => console.log(window.innerWidth))
+  );
 
   return (
     <div className={css.search}>
@@ -93,8 +102,8 @@ const Search = () => {
             scrollableTarget="scrollableDiv"
           >
             <div className={css.card_list}>
-              {shownImages.map((image) => (
-                <div className={css.card} key={image.id}>
+              {shownImages.map((image, i) => (
+                <div className={css.card} key={`${image.id}i`}>
                   <a
                     className={css.image_creator_profile}
                     href="https://unsplash.com/@rayia"
@@ -112,7 +121,27 @@ const Search = () => {
                     width="100%"
                     height="100%"
                   ></img>
-                  <h1>Below Placeholder</h1>
+                  <div className={css.image_actions_container}>
+                    <IconButton
+                      onClick={() =>
+                        setFavouritedImages(
+                          favouritedImages.includes(image.id)
+                            ? favouritedImages.filter((_) => _ !== image.id)
+                            : favouritedImages.concat(image.id)
+                        )
+                      }
+                      className={css.favourite_button}
+                    >
+                      {favouritedImages.includes(image.id) ? (
+                        <FavouritedIcon color="secondary" fontSize="large" />
+                      ) : (
+                        <UnfavouritedIcon color="secondary" fontSize="large" />
+                      )}
+                    </IconButton>
+                    <div className={css.download_button}>
+                      <DownloadButton />
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>

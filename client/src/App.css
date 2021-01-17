@@ -1,11 +1,17 @@
 * {
-  box-sizing: border-box;
-  background-color: rgb(244, 244, 244);
-  color: #333;
+  /* box-sizing: border-box; */
   font-size: 10px;
 }
 
 .App {
   margin: 0;
   padding: 0;
+}
+
+a:hover,
+a:active,
+a:focus,
+a:visited {
+  text-decoration: none;
+  color: black;
 }
