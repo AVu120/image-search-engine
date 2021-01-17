@@ -4,12 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-client": "webpack serve --config build-utils/webpack.config.js --env env=dev",
-    "build-client": "webpack --config build-utils/webpack.config.js --env env=prod",
+    "start": "webpack serve --config build-utils/webpack.config.js --env env=dev",
+    "build": "webpack --config build-utils/webpack.config.js --env env=prod",
     "test": "echo \"Error: no test specified\" && exit 0",
-    "prebuild": "webpack --config build-utils/webpack.config.js --env env=prod",
-    "build": "cd ../server && npm i",
-    "start": "cd ../server && npm start"
+    "deploy": "npm run build && cd ../server && npm i && npm start"
   },
   "keywords": [],
   "author": "Anthony Hien Vu <AVu120@gmail.com> (https://avu120.github.io/portfolio/)",

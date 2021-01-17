@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "This package.json is for deployment on Heroku only.",
   "scripts": {
-    "build": "cd client && npm i && npm run build",
-    "start": "cd server && npm start"
+    "build": "cd client && npm i && npm run deploy"
   },
   "keywords": [],
   "author": "Anthony Hien Vu <AVu120@gmail.com> (https://avu120.github.io/portfolio/)",
