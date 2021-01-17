@@ -7,7 +7,7 @@
     "start": "webpack serve --config build-utils/webpack.config.js --env env=dev",
     "build": "webpack --config build-utils/webpack.config.js --env env=prod",
     "test": "echo \"Error: no test specified\" && exit 0",
-    "deploy": "npm run build && cd ../server && npm i && npm start"
+    "deploy": "npm run build && cd ../server && npm i"
   },
   "keywords": [],
   "author": "Anthony Hien Vu <AVu120@gmail.com> (https://avu120.github.io/portfolio/)",
