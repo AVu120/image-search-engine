@@ -7,6 +7,13 @@ const About = () => {
       <h1 className="title">About this App.</h1>
       <div className={`text ${css.about_text}`}>
         <p>Created by Anthony Hien Vu. </p>
+        <p>
+          All images shown here are queried and retrieved using{" "}
+          <a href="https://unsplash.com/?utm_source=AnthonyHienVusImageSearchEngine&utm_medium=referral">
+            Unsplash
+          </a>
+          's public <a href="https://unsplash.com/documentation">api</a>.
+        </p>
         <p>My contact links are below.</p>
         <ul>
           <li>
