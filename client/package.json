@@ -39,7 +39,6 @@
     "html-webpack-plugin": "^4.5.1",
     "react-hot-loader": "^4.13.0",
     "style-loader": "^2.0.0",
-    "webpack": "^5.15.0",
     "webpack-cli": "^4.3.1",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.3"
@@ -51,6 +50,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-infinite-scroll-component": "^5.1.0",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "webpack": "^5.15.0"
   }
 }
