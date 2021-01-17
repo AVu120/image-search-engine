@@ -69,7 +69,10 @@ const Search = () => {
 
   return (
     <div className={css.search}>
-      <h1 className={css.title}>Image Search Engine</h1>
+      <h1 className={css.title}>
+        Beautiful, free images and photos that you can download and use for any
+        project.
+      </h1>
       <>
         <SearchForm
           css={css}
