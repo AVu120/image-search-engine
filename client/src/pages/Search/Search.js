@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import css from "./Search.module.css";
-import SearchForm from "../components/Search/SearchForm";
-import ImageGrid from "../components/Search/ImageGrid";
+import SearchForm from "../../components/Search/SearchForm";
+import ImageGrid from "../../components/Search/ImageGrid";
 
 const Search = () => {
   const [query, setQuery] = useState(
@@ -12,10 +12,12 @@ const Search = () => {
     localStorage.getItem("imageSearchEngineFavourites")?.split(",") || []
   );
   const [shownImages, setShownImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const numberOfImagesToLoad = 10;
 
   const queryImages = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     const apiEndpoint = "http://localhost:5000/images";
     const apiUrl = new URL(apiEndpoint);
@@ -67,6 +69,11 @@ const Search = () => {
     localStorage.setItem("imageSearchEngineFavourites", favouritedImages);
   }, [favouritedImages]);
 
+  useEffect(() => {
+    if (!images.length) return;
+    setIsLoading(false);
+  }, [images]);
+
   return (
     <div className={css.search}>
       <h1 className={css.title}>
@@ -88,6 +95,7 @@ const Search = () => {
           favouritedImages={favouritedImages}
           setFavouritedImages={setFavouritedImages}
           removeFromFavourites={removeFromFavourites}
+          isLoading={isLoading}
         />
       </>
     </div>

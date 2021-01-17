@@ -1,0 +1,14 @@
+.instructions {
+  margin: 0 auto;
+  max-width: 1000px;
+  padding: 40px;
+  height: 100vh;
+}
+
+.instructions_list {
+  line-height: 2rem;
+}
+
+li {
+  font-size: 1.5rem;
+}

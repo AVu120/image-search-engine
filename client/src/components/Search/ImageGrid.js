@@ -23,6 +23,7 @@ const ImageGrid = ({
   favouritedImages,
   setFavouritedImages,
   removeFromFavourites,
+  isLoading,
 }) => {
   const classes = useStyles();
 
@@ -44,53 +45,57 @@ const ImageGrid = ({
         scrollableTarget="scrollableDiv"
       >
         <div className={css.card_list}>
-          {shownImages.map((image) => (
-            <div className={css.card} key={`${image.id}`}>
-              <a
-                className={css.image_creator_profile}
-                href={`${image.user.links.html}?utm_source=AnthonyHienVusImageSearchEngine&utm_medium=referral`}
-              >
-                <Avatar
-                  alt={image.user?.name}
-                  src={image.user.profile_image?.small}
-                  className={classes.profileAvatar}
-                />
-                <p className={css.text}>{image.user?.name}</p>
-              </a>
-              <img
-                alt={image.alt_description}
-                src={image.urls?.full}
-                width="100%"
-                height="100%"
-              ></img>
-              <div className={css.image_actions_container}>
-                <IconButton
-                  onClick={() =>
-                    setFavouritedImages(
-                      favouritedImages.includes(image.id)
-                        ? removeFromFavourites(image.id)
-                        : favouritedImages.concat(image.id)
-                    )
-                  }
-                  className={css.favourite_button}
+          {shownImages.length ? (
+            shownImages.map((image) => (
+              <div className={css.card} key={`${image.id}`}>
+                <a
+                  className={css.image_creator_profile}
+                  href={`${image.user.links.html}?utm_source=AnthonyHienVusImageSearchEngine&utm_medium=referral`}
                 >
-                  {favouritedImages.includes(image.id) ? (
-                    <FavouritedIcon color="secondary" fontSize="large" />
-                  ) : (
-                    <UnfavouritedIcon color="secondary" fontSize="large" />
-                  )}
-                </IconButton>
-                <div className={css.download_button}>
-                  <DownloadButton
-                    title="Download"
-                    options={Object.keys(image.urls).map((key) => {
-                      return { label: key, url: image.urls[key] };
-                    })}
+                  <Avatar
+                    alt={image.user?.name}
+                    src={image.user.profile_image?.small}
+                    className={classes.profileAvatar}
                   />
+                  <p className={css.text}>{image.user?.name}</p>
+                </a>
+                <img
+                  alt={image.alt_description}
+                  src={image.urls?.full}
+                  width="100%"
+                  height="100%"
+                ></img>
+                <div className={css.image_actions_container}>
+                  <IconButton
+                    onClick={() =>
+                      setFavouritedImages(
+                        favouritedImages.includes(image.id)
+                          ? removeFromFavourites(image.id)
+                          : favouritedImages.concat(image.id)
+                      )
+                    }
+                    className={css.favourite_button}
+                  >
+                    {favouritedImages.includes(image.id) ? (
+                      <FavouritedIcon color="secondary" fontSize="large" />
+                    ) : (
+                      <UnfavouritedIcon color="secondary" fontSize="large" />
+                    )}
+                  </IconButton>
+                  <div className={css.download_button}>
+                    <DownloadButton
+                      title="Download"
+                      options={Object.keys(image.urls).map((key) => {
+                        return { label: key, url: image.urls[key] };
+                      })}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : isLoading ? (
+            <p className={css.text}>Loading...</p>
+          ) : null}
         </div>
       </InfiniteScroll>
     </div>

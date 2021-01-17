@@ -16,3 +16,8 @@ a:visited {
   text-decoration: none;
   color: black;
 }
+
+.title {
+  font-size: 2.5rem;
+  font-family: "Gill Sans", "Gill Sans MT", "Trebuchet MS", sans-serif;
+}
