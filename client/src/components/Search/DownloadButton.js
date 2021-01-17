@@ -77,7 +77,7 @@ const MenuButton = ({ title = "menu", options = [] }) => {
         onClose={handleClose}
       >
         {options.map((option) => (
-          <a href={option.url} download>
+          <a href={option.url} download key={option.url}>
             <StyledMenuItem>
               <ListItemText primary={option.label} />
             </StyledMenuItem>

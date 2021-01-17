@@ -7,7 +7,8 @@ import FavouritedIcon from "@material-ui/icons/Favorite";
 import UnfavouritedIcon from "@material-ui/icons/FavoriteBorder";
 import css from "./Search.module.css";
 import { makeStyles } from "@material-ui/core/styles";
-import DownloadButton from "../components/common/MenuButton";
+import DownloadButton from "../components/Search/DownloadButton";
+import SearchForm from "../components/Search/SearchForm";
 
 const useStyles = makeStyles((theme) => ({
   profileAvatar: {
@@ -24,11 +25,10 @@ const Search = () => {
   );
   const [images, setImages] = useState([]);
   const [favouritedImages, setFavouritedImages] = useState(
-    localStorage.getItem("imageSearchEngineFavourites") || []
+    localStorage.getItem("imageSearchEngineFavourites")?.split(",") || []
   );
   const [shownImages, setShownImages] = useState([]);
   const numberOfImagesToLoad = 10;
-  console.log({ shownImages });
   const queryImages = async (e) => {
     e.preventDefault();
     const apiEndpoint = "http://localhost:5000/images";
@@ -84,25 +84,12 @@ const Search = () => {
     <div className={css.search}>
       <h1 className={css.title}>Image Search Engine</h1>
       <>
-        <form className={css.form} onSubmit={(e) => query && queryImages(e)}>
-          {" "}
-          <label className={css.inputLabel} htmlFor="query">
-            {" "}
-            📷
-          </label>
-          <input
-            type="text"
-            name="query"
-            className={css.input}
-            placeholder="Search images"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            required
-          />
-          <button type="submit" className={css.button}>
-            Search
-          </button>
-        </form>
+        <SearchForm
+          css={css}
+          query={query}
+          setQuery={setQuery}
+          queryImages={queryImages}
+        />
         <div className={css.card_list_container} id="scrollableDiv">
           <InfiniteScroll
             dataLength={shownImages.length}
