@@ -1,11 +1,23 @@
 import React, { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { testImageData } from "./constant";
+import Avatar from "@material-ui/core/Avatar";
 import css from "./Search.module.css";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  profileAvatar: {
+    width: "32px",
+    height: "32px",
+    marginRight: "5px",
+  },
+}));
 
 const Search = () => {
+  const classes = useStyles();
   const [query, setQuery] = useState("");
   const [images, setImages] = useState([]);
-  const [shownImages, setShownImages] = useState([]);
+  const [shownImages, setShownImages] = useState(testImageData);
   const numberOfImagesToLoad = 10;
 
   const queryImages = async (e) => {
@@ -83,12 +95,24 @@ const Search = () => {
             <div className={css.card_list}>
               {shownImages.map((image) => (
                 <div className={css.card} key={image.id}>
+                  <a
+                    className={css.image_creator_profile}
+                    href="https://unsplash.com/@rayia"
+                  >
+                    <Avatar
+                      alt="Rayia Soderberg"
+                      src="https://images.unsplash.com/profile-1577329897370-acd13024143fimage?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&cs=tinysrgb&fit=crop&h=32&w=32"
+                      className={classes.profileAvatar}
+                    />
+                    <p className={css.text}>{"Rayia Soderberg"}</p>
+                  </a>
                   <img
                     alt={image.alt_description}
                     src={image.urls.full}
                     width="100%"
                     height="100%"
                   ></img>
+                  <h1>Below Placeholder</h1>
                 </div>
               ))}
             </div>

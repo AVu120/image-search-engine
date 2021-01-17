@@ -13,7 +13,7 @@
 .text {
   font-size: 1.4rem;
   text-align: center;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .form {
@@ -89,4 +89,11 @@
   flex: 100%;
   margin-top: 1rem;
   border-radius: 10px;
+}
+
+.image_creator_profile {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
 }
