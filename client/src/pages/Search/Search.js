@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import css from "./Search.module.css";
-import SearchForm from "../../components/Search/SearchForm";
+import React, { useEffect, useState } from "react";
 import ImageGrid from "../../components/Search/ImageGrid";
+import SearchForm from "../../components/Search/SearchForm";
+import css from "./Search.module.css";
 
 const Search = () => {
   const [query, setQuery] = useState(
@@ -13,10 +13,12 @@ const Search = () => {
   );
   const [shownImages, setShownImages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [receivedResponse, setReceivedResponse] = useState(false);
 
   const numberOfImagesToLoad = 10;
 
   const queryImages = async (e) => {
+    setReceivedResponse(false);
     setIsLoading(true);
     e.preventDefault();
     const apiEndpoint = "http://localhost:5000/images";
@@ -32,12 +34,14 @@ const Search = () => {
 
     if (response.ok) {
       const responseInJson = await response.json();
+      setReceivedResponse(true);
       setImages(responseInJson.response.results);
       setShownImages(
         responseInJson.response.results.slice(0, numberOfImagesToLoad)
       );
     } else {
       console.error({ response });
+      setReceivedResponse(true);
     }
   };
 
@@ -69,10 +73,11 @@ const Search = () => {
     localStorage.setItem("imageSearchEngineFavourites", favouritedImages);
   }, [favouritedImages]);
 
+  // Set image loading status.
   useEffect(() => {
-    if (!images.length) return;
+    if (!receivedResponse) return;
     setIsLoading(false);
-  }, [images]);
+  }, [receivedResponse]);
 
   return (
     <div className={css.search}>
@@ -96,6 +101,7 @@ const Search = () => {
           setFavouritedImages={setFavouritedImages}
           removeFromFavourites={removeFromFavourites}
           isLoading={isLoading}
+          receivedResponse={receivedResponse}
         />
       </>
     </div>

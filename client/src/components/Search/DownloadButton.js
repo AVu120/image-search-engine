@@ -1,9 +1,9 @@
-import React from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import ListItemText from "@material-ui/core/ListItemText";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import ListItemText from "@material-ui/core/ListItemText";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+import React from "react";
 import { grey } from "../../utilities/constants/colors";
 
 const useStyles = makeStyles((theme) => ({

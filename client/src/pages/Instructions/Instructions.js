@@ -1,4 +1,3 @@
-import { CssBaseline } from "@material-ui/core";
 import React from "react";
 import css from "./Instructions.module.css";
 

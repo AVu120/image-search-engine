@@ -1,11 +1,11 @@
-import React from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
+import { makeStyles } from "@material-ui/core/styles";
 import FavouritedIcon from "@material-ui/icons/Favorite";
 import UnfavouritedIcon from "@material-ui/icons/FavoriteBorder";
+import React from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import DownloadButton from "../../components/Search/DownloadButton";
-import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   profileAvatar: {
@@ -24,6 +24,7 @@ const ImageGrid = ({
   setFavouritedImages,
   removeFromFavourites,
   isLoading,
+  receivedResponse,
 }) => {
   const classes = useStyles();
 
@@ -95,6 +96,10 @@ const ImageGrid = ({
             ))
           ) : isLoading ? (
             <p className={css.text}>Loading...</p>
+          ) : receivedResponse ? (
+            <p className={css.text}>
+              No images found. Try again with different word(s).
+            </p>
           ) : null}
         </div>
       </InfiniteScroll>
