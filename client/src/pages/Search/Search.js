@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ImageGrid from "../../components/Search/ImageGrid";
 import SearchForm from "../../components/Search/SearchForm";
 import css from "./Search.module.css";
+const axios = require("axios");
 
 const Search = () => {
   const [query, setQuery] = useState(
@@ -22,23 +23,14 @@ const Search = () => {
     setIsLoading(true);
     e.preventDefault();
     const apiEndpoint = "http://localhost:5000/images";
-    const apiUrl = new URL(apiEndpoint);
     const queryParmaters = { query };
-    Object.keys(queryParmaters).forEach((key) =>
-      apiUrl.searchParams.append(key, queryParmaters[key])
-    );
-    const response = await fetch(
-      apiUrl,
-      process.env.NODE_ENV === "development" && { mode: "cors" }
-    );
 
-    if (response.ok) {
-      const responseInJson = await response.json();
+    const response = await axios.get(apiEndpoint, { params: queryParmaters });
+    if (response.statusText === "OK") {
       setReceivedResponse(true);
-      setImages(responseInJson.response.results);
-      setShownImages(
-        responseInJson.response.results.slice(0, numberOfImagesToLoad)
-      );
+      const results = response.data.response.results;
+      setImages(results);
+      setShownImages(results.slice(0, numberOfImagesToLoad));
     } else {
       console.error({ response });
       setReceivedResponse(true);
