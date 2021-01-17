@@ -84,11 +84,10 @@ const Search = () => {
               {shownImages.map((image) => (
                 <div className={css.card} key={image.id}>
                   <img
-                    className={css.card_image}
                     alt={image.alt_description}
                     src={image.urls.full}
-                    width="50%"
-                    height="50%"
+                    width="100%"
+                    height="100%"
                   ></img>
                 </div>
               ))}
