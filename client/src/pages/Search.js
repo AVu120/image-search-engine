@@ -7,7 +7,7 @@ import FavouritedIcon from "@material-ui/icons/Favorite";
 import UnfavouritedIcon from "@material-ui/icons/FavoriteBorder";
 import css from "./Search.module.css";
 import { makeStyles } from "@material-ui/core/styles";
-import DownloadButton from "../components/common/DownloadButton";
+import DownloadButton from "../components/common/MenuButton";
 
 const useStyles = makeStyles((theme) => ({
   profileAvatar: {
@@ -19,12 +19,16 @@ const useStyles = makeStyles((theme) => ({
 
 const Search = () => {
   const classes = useStyles();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(
+    localStorage.getItem("imageSearchEngineQuery") || ""
+  );
   const [images, setImages] = useState([]);
-  const [favouritedImages, setFavouritedImages] = useState([]);
-  const [shownImages, setShownImages] = useState(testImageData);
+  const [favouritedImages, setFavouritedImages] = useState(
+    localStorage.getItem("imageSearchEngineFavourites") || []
+  );
+  const [shownImages, setShownImages] = useState([]);
   const numberOfImagesToLoad = 10;
-
+  console.log({ shownImages });
   const queryImages = async (e) => {
     e.preventDefault();
     const apiEndpoint = "http://localhost:5000/images";
@@ -52,15 +56,29 @@ const Search = () => {
   // Trigger this function when user scrolls to bottom of image grid to
   // enable infinite scrolling.
   const showMoreImages = () => {
-    if (shownImages.length < images.length)
+    if (shownImages.length < images.length) {
       setShownImages(
         images.slice(0, shownImages.length + numberOfImagesToLoad)
       );
+    }
   };
 
-  useEffect(() =>
-    window.addEventListener("resize", () => console.log(window.innerWidth))
-  );
+  const removeFromFavourites = (imageIdToRemove) => {
+    const indexToRemove = favouritedImages.indexOf(imageIdToRemove);
+    let currentFavourites = JSON.parse(JSON.stringify(favouritedImages));
+    currentFavourites.splice(indexToRemove, 1);
+    return currentFavourites;
+  };
+
+  // Query persists after browser refresh.
+  useEffect(() => {
+    localStorage.setItem("imageSearchEngineQuery", query);
+  }, [query]);
+
+  // Favourites persists after browser-refresh/different-query.
+  useEffect(() => {
+    localStorage.setItem("imageSearchEngineFavourites", favouritedImages);
+  }, [favouritedImages]);
 
   return (
     <div className={css.search}>
@@ -102,22 +120,22 @@ const Search = () => {
             scrollableTarget="scrollableDiv"
           >
             <div className={css.card_list}>
-              {shownImages.map((image, i) => (
-                <div className={css.card} key={`${image.id}i`}>
+              {shownImages.map((image) => (
+                <div className={css.card} key={`${image.id}`}>
                   <a
                     className={css.image_creator_profile}
-                    href="https://unsplash.com/@rayia"
+                    href={`${image.user.links.html}?utm_source=AnthonyHienVusImageSearchEngine&utm_medium=referral`}
                   >
                     <Avatar
-                      alt="Rayia Soderberg"
-                      src="https://images.unsplash.com/profile-1577329897370-acd13024143fimage?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&cs=tinysrgb&fit=crop&h=32&w=32"
+                      alt={image.user?.name}
+                      src={image.user.profile_image?.small}
                       className={classes.profileAvatar}
                     />
-                    <p className={css.text}>{"Rayia Soderberg"}</p>
+                    <p className={css.text}>{image.user?.name}</p>
                   </a>
                   <img
                     alt={image.alt_description}
-                    src={image.urls.full}
+                    src={image.urls?.full}
                     width="100%"
                     height="100%"
                   ></img>
@@ -126,7 +144,7 @@ const Search = () => {
                       onClick={() =>
                         setFavouritedImages(
                           favouritedImages.includes(image.id)
-                            ? favouritedImages.filter((_) => _ !== image.id)
+                            ? removeFromFavourites(image.id)
                             : favouritedImages.concat(image.id)
                         )
                       }
@@ -139,7 +157,12 @@ const Search = () => {
                       )}
                     </IconButton>
                     <div className={css.download_button}>
-                      <DownloadButton />
+                      <DownloadButton
+                        title="Download"
+                        options={Object.keys(image.urls).map((key) => {
+                          return { label: key, url: image.urls[key] };
+                        })}
+                      />
                     </div>
                   </div>
                 </div>
