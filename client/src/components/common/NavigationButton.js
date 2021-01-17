@@ -1,17 +1,15 @@
 import React from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import { grey } from "../../utilities/constants/colors";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import { BrowserRouter as Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
-  button: {
-    backgroundColor: grey,
-    "&:hover": {
-      backgroundColor: "rgba(0, 0, 0, 0.85)",
-    },
+  menuButton: {
+    marginRight: theme.spacing(2),
   },
 }));
 
@@ -60,16 +58,15 @@ const MenuButton = ({ title = "menu", options = [] }) => {
 
   return (
     <div>
-      <Button
-        aria-controls="customized-menu"
-        aria-haspopup="true"
-        variant="contained"
-        color="primary"
+      <IconButton
+        edge="start"
+        className={classes.menuButton}
+        color="inherit"
+        aria-label="menu"
         onClick={handleClick}
-        className={classes.button}
       >
-        {title}
-      </Button>
+        <MenuIcon fontSize="large" />
+      </IconButton>
       <StyledMenu
         id="customized-menu"
         anchorEl={anchorEl}
@@ -77,13 +74,22 @@ const MenuButton = ({ title = "menu", options = [] }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {options.map((option) => (
-          <a href={option.url} download key={option.url}>
-            <StyledMenuItem>
-              <ListItemText primary={option.label} />
-            </StyledMenuItem>
-          </a>
-        ))}
+        <Link to="/" exact onClick={handleClose}>
+          <StyledMenuItem>
+            <ListItemText primary="Search" />
+          </StyledMenuItem>
+        </Link>
+
+        <Link to="/instructions" exact onClick={handleClose}>
+          <StyledMenuItem>
+            <ListItemText primary="Instructions" />
+          </StyledMenuItem>
+        </Link>
+        <Link to="/about" exact onClick={handleClose}>
+          <StyledMenuItem>
+            <ListItemText primary="About" />
+          </StyledMenuItem>
+        </Link>
       </StyledMenu>
     </div>
   );
