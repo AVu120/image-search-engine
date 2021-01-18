@@ -45,7 +45,7 @@ API_KEY=###########################################
 
 4.
 
-- To start the app in development mode (e.g. on your local pc).
+- To start the app in development mode on your local pc.
 
   - Checkout to the dev branch.
 
@@ -67,13 +67,26 @@ API_KEY=###########################################
 
   - Access the app at http://localhost:8080/
 
-- To start the app in production mode (e.g. on your local pc):
+- To start the app in production mode on your local pc:
 
   - Checkout to the main branch.
 
   ```
   git checkout main
   ```
+
+  - Ensure 'require("dotenv").config();' is uncommented in server\routes\images.js as shown below:
+
+  ```
+  const express = require("express");
+  const router = express.Router();
+  const { createApi } = require("unsplash-js");
+  const nodeFetch = require("node-fetch");
+  /* Enable below only in local environment (e.g. your PC). */
+  require("dotenv").config();
+  ```
+
+  - This is to ensure we can access the api key stored in /server/.env.
 
   - In the root directory, run the following commands in the given order:
 
