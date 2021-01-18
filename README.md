@@ -6,6 +6,7 @@
 - [Built With](#built-with)
 - [Getting Started](#getting-started)
 - [Accessing the Application](#accessing-the-application)
+- [Remote Deployment](#remote-deployment)
 
 ## About
 
@@ -13,8 +14,9 @@ App that lets a user enter keywords/tags and be shown matching images.
 
 ## Built With
 
-- [React](https://reactjs.org/) for frontend
-- [Node](https://nodejs.org/en/) for backend/api-server
+- [React](https://reactjs.org/) for frontend.
+- [Node](https://nodejs.org/en/) for backend/api-server.
+- [Unsplash API](https://unsplash.com/documentation) for retrieving royalty-free images.
 
 ## Getting Started
 
@@ -30,30 +32,77 @@ git clone https://github.com/AVu120/image-search-engine.git
 cd image-search-engine
 ```
 
-3. Download all required dependancies in both /client and /server.
+3.
+
+- [Create an Unsplash developer](https://unsplash.com/documentation#creating-a-developer-account)'s account.
+- Register this app in your Unsplash developer's account to be given an API key.
+- Create a /server/.env file.
+- Enter your API key into /server/.env as shown below:
 
 ```
-cd client
-npm i
-
-cd ../server
-npm i
-
+API_KEY=###########################################
 ```
 
 4.
 
-- Start the client and backend servers.
+- To start the app in development mode (e.g. on your local pc).
+
+  - Checkout to the dev branch.
+
+  ```
+  git checkout dev
+  ```
+
+  - Start the app in development mode by running the following commands in the given order:
+
+  ```
+  cd client
+  npm i
+  npm start
+
+  cd ../server
+  npm i
+  npm start
+  ```
+
+  - Access the app at http://localhost:8080/
+
+- To start the app in production mode (e.g. on your local pc):
+
+  - Checkout to the main branch.
+
+  ```
+  git checkout main
+  ```
+
+  - In the root directory, run the following commands in the given order:
+
+  ```
+  npm run build
+  npm start
+  ```
+
+  - Access the app at http://localhost:5000/
+
+## Remote Deployment
+
+When deploying this app remotely, e.g. to Heroku, repl.it, CodeSandBox, etc., note that the /server/.env file is ignored by git and thus will not be in my/your remote git repo.
+
+Hence if you're deploying from your github repo to a Platform as a Service (PAAS) like Heroku, you'll need to do the following:
+
+1. Ensure 'require("dotenv").config();' is commented out in server\routes\images.js as shown below:
 
 ```
-cd client
-npm start
-
-cd ../server
-npm start
-
+const express = require("express");
+const router = express.Router();
+const { createApi } = require("unsplash-js");
+const nodeFetch = require("node-fetch");
+/* Enable below only in local environment (e.g. your PC). */
+# require("dotenv").config();
 ```
 
-## Accessing the Application
+2. Push this change (commenting out of the above line) into your remote git repo.
+3. For your respective PAAS, ensure your API_KEY is stored in your production app env. That is, without the use of a permanent .env file containing it in /server on the web server. For example, here are some instructions to do this for some PaaS:
 
-- Access the app at http://localhost:8080/
+- [Heroku](https://devcenter.heroku.com/articles/config-vars#managing-config-vars) via CLI or web-GUI.
+- [repl.it](https://docs.repl.it/repls/secret-keys) via a .env file that you create but only you can see (other users/guests with your repl.it link cannot see it).
