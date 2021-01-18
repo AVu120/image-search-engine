@@ -3,7 +3,7 @@ const router = express.Router();
 const { createApi } = require("unsplash-js");
 const nodeFetch = require("node-fetch");
 /* Enable below only in development environment. */
-// require("dotenv").config();
+require("dotenv").config();
 
 const api = createApi({
   accessKey: process.env.API_KEY,

@@ -23,9 +23,9 @@ const Search = () => {
     setIsLoading(true);
     e.preventDefault();
     /* Enable below for development. */
-    // const apiEndpoint = "http://localhost:5000/images";
+    const apiEndpoint = "http://localhost:5000/images";
     /* Enable below for production. */
-    const apiEndpoint = "/images";
+    // const apiEndpoint = "/images";
     const queryParmaters = { query };
 
     const response = await axios.get(apiEndpoint, { params: queryParmaters });

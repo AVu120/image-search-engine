@@ -4,7 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 // Enable cors only in development environment.
-// const cors = require("cors");
+const cors = require("cors");
 
 const imagesRouter = require("./routes/images");
 
