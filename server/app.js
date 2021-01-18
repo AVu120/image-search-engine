@@ -3,7 +3,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-// Enable cors only in development environment.
+// Enable cors only in development mode.
 // const cors = require("cors");
 
 const imagesRouter = require("./routes/images");

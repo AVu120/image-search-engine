@@ -2,8 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { createApi } = require("unsplash-js");
 const nodeFetch = require("node-fetch");
-/* Enable below only in development environment. */
-// require("dotenv").config();
+/* Enable below only in local environment (e.g. your PC). */
+require("dotenv").config();
 
 const api = createApi({
   accessKey: process.env.API_KEY,
