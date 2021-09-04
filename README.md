@@ -1,8 +1,8 @@
 <h1 align="center">Image Search Engine</h1>
 
-Play with this app at https://image-search-engine-avu120.herokuapp.com/.
+![image](https://user-images.githubusercontent.com/38395166/132076987-ec55e38a-30cb-4688-8ec8-2e61c179d72f.png)
 
-![image](https://user-images.githubusercontent.com/38395166/104963534-df859080-5a2e-11eb-9909-c7512c210fe6.png)
+Play with this app at https://image-search-engine-avu120.herokuapp.com/.
 
 ## Table of Contents
 
